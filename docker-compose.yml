@@ -1,0 +1,23 @@
+  version: "3"
+  services:
+    postgres:
+      image: postgres:latest
+      container_name: postgres
+      ports:
+        - 5432:5432
+      environment:
+        - POSTGRES_PASSWORD=secret
+        - POSTGRES_USER=postgres
+        - POSTGRES_DB=bookstore
+      restart: always
+    # APP*****************************************
+    bookstore:
+      image: bookstore:latest
+      container_name: bookstore
+      ports:
+        - 8080:8080
+      restart: always
+      depends_on:
+        - postgres
+      links:
+        - postgres

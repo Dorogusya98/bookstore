@@ -12,9 +12,9 @@ public interface BookService {
 
     boolean save(Book book);
 
-    boolean update(Book bookFromDB, Book book);
+    boolean update(Book book);
 
-    boolean delete(Book book);
+    boolean delete(Long id);
 
     boolean addBook(Long bookTypeId, Long bookCount);
 

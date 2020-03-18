@@ -6,18 +6,16 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "book", uniqueConstraints = {@UniqueConstraint(columnNames = {"bookTitle","bookAuthor","bookPDate"})})
+@Table(name = "book")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name = "bookTitle", nullable = false)
+    @Column(nullable = false)
     private String bookTitle;
-    @JsonIgnore
-    @Column(name="bookAuthor", nullable = false)
+    @Column(nullable = false)
     private String bookAuthor;
-    @JsonIgnore
-    @Column(name="bookPDate", nullable = false)
+    @Column(nullable = false)
     private String bookPDate;
     @Column(nullable = false)
     private Long bookCount;
@@ -26,18 +24,17 @@ public class Book {
     @Column(nullable = false)
     private Double bookRentPrice;
 
-    @JsonIgnore
     private String bookPublisher;
-    @JsonIgnore
     private String bookAnnotation;
-    @JsonIgnore
     private Integer bookNmPages;
 
-    public Book(String bookTitle, Long bookCount, Double bookCost, Double bookRentPrice) {
+    public Book(String bookTitle, Long bookCount, Double bookCost, Double bookRentPrice, String bookPDate, String bookAuthor) {
         this.bookTitle = bookTitle;
         this.bookCount = bookCount;
         this.bookCost = bookCost;
         this.bookRentPrice = bookRentPrice;
+        this.bookPDate = bookPDate;
+        this.bookAuthor = bookAuthor;
     }
 
     public Book() {

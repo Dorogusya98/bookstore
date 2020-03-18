@@ -21,11 +21,11 @@ public class BookServiceImp implements BookService {
     @Override
     public boolean bookCreate() {
         try {
-            bookRepo.save(new Book("Книга джунглей", 12L, 160., 100.));
-            bookRepo.saveAll(Arrays.asList(new Book("Книга леса", 18L, 220., 160.)
-                    , new Book("Книга пустыни", 15L, 200., 150.)
-                    , new Book("Книга океана", 20L, 250., 200.)
-                    , new Book("Книга степи", 25L, 260., 210.)));
+            bookRepo.save(new Book("Книга джунглей", 12L, 160., 100., "2020 год", "Дадава Й.Я."));
+            bookRepo.saveAll(Arrays.asList(new Book("Книга леса", 18L, 220., 160., "18.03.2020", "Дадава Й.Я.")
+                    , new Book("Книга пустыни", 15L, 200., 150., "2020 год", "Дадава Й.Я.")
+                    , new Book("Книга океана", 20L, 250., 200., "2020 год", "Дадава Й.Я.")
+                    , new Book("Книга степи", 25L, 260., 210., "2020 год", "Дадава Й.Я.")));
             return true;
         }catch (Exception e){
             return false;
@@ -47,7 +47,7 @@ public class BookServiceImp implements BookService {
             try {
                 Book b = bookFromDb.get();
                 b.setBookCount(book.getBookCount() + b.getBookCount());
-                return update(b, book);
+                return update(b);
             } catch (Exception e) {
                 return false;
             }
@@ -55,10 +55,9 @@ public class BookServiceImp implements BookService {
     }
 
     @Override
-    public boolean update(Book bookFromDb, Book book) {
+    public boolean update(Book book) {
         try{
-            BeanUtils.copyProperties(book, bookFromDb, "id");
-            bookRepo.save(bookFromDb);
+            bookRepo.save(book);
             return true;
         }catch (Exception e) {
             return false;
@@ -66,9 +65,10 @@ public class BookServiceImp implements BookService {
     }
 
     @Override
-    public boolean delete(Book book) {
+    public boolean delete(Long id) {
         try{
-            bookRepo.delete(book);
+            Optional<Book> book = bookRepo.findById(id);
+            book.ifPresent(value -> bookRepo.delete(value));
             return true;
         }catch (Exception e) {
             return false;
