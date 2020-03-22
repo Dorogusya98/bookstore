@@ -1,8 +1,4 @@
 package vt41.bookstore.domain.entity;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-
 import javax.persistence.*;
 
 @Entity
@@ -23,12 +19,12 @@ public class Book {
     private Double bookCost;
     @Column(nullable = false)
     private Double bookRentPrice;
-
     private String bookPublisher;
     private String bookAnnotation;
     private Integer bookNmPages;
 
-    public Book(String bookTitle, Long bookCount, Double bookCost, Double bookRentPrice, String bookPDate, String bookAuthor) {
+    public Book(String bookTitle, Long bookCount, Double bookCost,
+                Double bookRentPrice, String bookPDate, String bookAuthor) {
         this.bookTitle = bookTitle;
         this.bookCount = bookCount;
         this.bookCost = bookCost;
@@ -37,8 +33,7 @@ public class Book {
         this.bookAuthor = bookAuthor;
     }
 
-    public Book() {
-    }
+    public Book() { }
 
     public Long getId() {
         return id;

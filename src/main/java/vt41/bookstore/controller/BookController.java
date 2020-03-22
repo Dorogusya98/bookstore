@@ -23,9 +23,6 @@ import java.util.Optional;
 public class BookController {
 
     @Autowired
-    BookRepo bookRepo;
-
-    @Autowired
     BookService bookService;
 
     @GetMapping("/books")

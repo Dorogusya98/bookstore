@@ -34,24 +34,21 @@ public class BookServiceImp implements BookService {
 
     @Override
     public boolean save(Book book) {
-        Optional<Book> bookFromDb = bookRepo.findBookByBookTitleAndBookAuthorAndBookPDate(book.getBookTitle(), book.getBookAuthor(), book.getBookPDate());
+        Optional<Book> bookFromDb = bookRepo.findBookByBookTitleAndBookAuthorAndBookPDate(
+                book.getBookTitle(), book.getBookAuthor(), book.getBookPDate());
         if(!bookFromDb.isPresent()) {
             try {
                 bookRepo.save(book);
                 return true;
             } catch (Exception e) {
-                return false;
-            }
-        }
+                return false; } }
         else {
             try {
                 Book b = bookFromDb.get();
                 b.setBookCount(book.getBookCount() + b.getBookCount());
                 return update(b);
             } catch (Exception e) {
-                return false;
-            }
-        }
+                return false; } }
     }
 
     @Override
@@ -60,8 +57,7 @@ public class BookServiceImp implements BookService {
             bookRepo.save(book);
             return true;
         }catch (Exception e) {
-            return false;
-        }
+            return false; }
     }
 
     @Override
@@ -71,8 +67,7 @@ public class BookServiceImp implements BookService {
             book.ifPresent(value -> bookRepo.delete(value));
             return true;
         }catch (Exception e) {
-            return false;
-        }
+            return false; }
     }
 
     @Override
@@ -81,8 +76,7 @@ public class BookServiceImp implements BookService {
         if (bookFromDb.isPresent()) {
             bookFromDb.get().setBookCount(bookFromDb.get().getBookCount() + bookCount);
             bookRepo.save(bookFromDb.get());
-            return true;
-        }
+            return true; }
         else
             return false;
     }
@@ -93,8 +87,7 @@ public class BookServiceImp implements BookService {
         if(bookFromDb.isPresent() && bookFromDb.get().getBookCount() >= bookCount) {
             bookFromDb.get().setBookCount(bookFromDb.get().getBookCount() - bookCount);
             bookRepo.save(bookFromDb.get());
-            return bookFromDb;
-        }
+            return bookFromDb; }
         else
             return Optional.empty();
     }
